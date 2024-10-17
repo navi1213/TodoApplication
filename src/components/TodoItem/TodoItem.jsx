@@ -38,6 +38,13 @@ const TodoItem = () => {
     }
   }, [todos]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();  // Shift + Enter の場合は無視して改行を許可
+      confirmContent(e);   // Enterが押されたときにconfirmContentを呼び出す
+    }
+  };
+
   return (
     <div>
       {todos.map((todo) => (
@@ -54,6 +61,7 @@ const TodoItem = () => {
                 <textarea
                   value={editingContent}
                   onChange={changeContent}
+                  onKeyDown={handleKeyDown}
                   className="w-full h-full p-2 border rounded resize-none overflow-auto"
                   style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
                 />
