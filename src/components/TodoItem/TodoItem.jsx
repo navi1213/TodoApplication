@@ -1,16 +1,19 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { deleteTodo, updateTodo} from "../../store/modules/todoSlice";
 
-const TodoItem = ({ todo }) => {
-  const [editingContent, setEditingContent] = useState(todo.content);
+import DraggableResizableWrapper from "./DraggableResizableWrapper";
+import { deleteTodo, updateTodo } from "../../store/modules/todoSlice";
+
+const TodoItem = () => {
+  const todos = useSelector((state) => state.todos.todos);
+  const [editingContent, setEditingContent] = useState("");
   const dispatch = useDispatch();
 
-  const complete = () => {
+  const complete = (todo) => {
     dispatch(deleteTodo({ todo }));
   };
 
-  const toggleEditMode = () => {
+  const toggleEditMode = (todo) => {
     const newTodo = { ...todo, isEditing: !todo.isEditing };
     dispatch(updateTodo({ todo: newTodo }));
   };
@@ -19,7 +22,7 @@ const TodoItem = ({ todo }) => {
     setEditingContent(e.target.value);
   };
 
-  const confirmContent = (e) => {
+  const confirmContent = (e, todo) => {
     e.preventDefault();
     const newTodo = {
       ...todo,
@@ -30,8 +33,10 @@ const TodoItem = ({ todo }) => {
   };
 
   useEffect(() => {
-    setEditingContent(todo.content);
-  }, [todo.content]);
+    if (todos.length > 0) {
+      setEditingContent(todos[0].content);
+    }
+  }, [todos]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -39,33 +44,40 @@ const TodoItem = ({ todo }) => {
       confirmContent(e);   // Enterが押されたときにconfirmContentを呼び出す
     }
   };
+
   return (
     <div>
-      <button
-        onClick={() => complete(todo)}
-        className="absolute top-2 right-2 bg-red-500 text-white font-bold rounded-full p-1"
-      >
-        ×
-      </button>
-      <form onSubmit={confirmContent} className="h-full">
-        {todo.isEditing ? (
-          <textarea
-          value={editingContent}
-          onChange={changeContent}
-          onKeyDown={handleKeyDown}
-          className="w-full h-full p-2 border rounded resize-none overflow-auto"
-          style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
-        />
-        ) : (
-          <div
-            className="h-full w-full p-2"
-            onDoubleClick={toggleEditMode}
-            style={{ whiteSpace: "pre-wrap",wordBreak: "break-all"}}
-          >
-            {todo.content}
+      {todos.map((todo) => (
+        <DraggableResizableWrapper key={todo.id}>
+          <div>
+            <button
+              onClick={() => complete(todo)}
+              className="absolute top-2 right-2 bg-red-500 text-white font-bold rounded-full p-1"
+            >
+              ×
+            </button>
+            <form onSubmit={(e) => confirmContent(e, todo)} className="h-full">
+              {todo.isEditing ? (
+                <textarea
+                  value={editingContent}
+                  onChange={changeContent}
+                  onKeyDown={handleKeyDown}
+                  className="w-full h-full p-2 border rounded resize-none overflow-auto"
+                  style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
+                />
+              ) : (
+                <div
+                  className="h-full w-full p-2"
+                  onDoubleClick={() => toggleEditMode(todo)}
+                  style={{ whiteSpace: "pre-wrap" }}
+                >
+                  {todo.content}
+                </div>
+              )}
+            </form>
           </div>
-        )}
-      </form>
+        </DraggableResizableWrapper>
+      ))}
     </div>
   );
 };
