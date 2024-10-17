@@ -19,12 +19,14 @@ export const todoSlice = createSlice({
         isEditing: false,
       }
     ],
+    endedTodos:[]
   },
   reducers: {
     addTodo: (state, { type, payload }) => {
       state.todos.push(payload.todo);
     },
     deleteTodo: (state, { type, payload }) => {
+      state.endedTodos.push(payload.todo);
       state.todos = state.todos.filter((_todo) => {
         console.log(payload.todo);
         return _todo.id !== payload.todo.id;
@@ -41,6 +43,6 @@ export const todoSlice = createSlice({
 });
 
 
-export const { addTodo, deleteTodo, updateTodo,reorderTodos } = todoSlice.actions;
+export const { addTodo, deleteTodo, updateTodo,reorderTodos ,addDeletedTodos} = todoSlice.actions;
 
 export default todoSlice.reducer;

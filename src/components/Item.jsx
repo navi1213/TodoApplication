@@ -1,5 +1,5 @@
 import DraggableResizableWrapper from "./DraggableResizableWrapper";
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem/TodoItem";
 
 const Item = ({ todo }) => {
   return (

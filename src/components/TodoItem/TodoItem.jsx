@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo, updateTodo } from "../store/modules/todoSlice";
+import { deleteTodo, updateTodo} from "../../store/modules/todoSlice";
 
 const TodoItem = ({ todo }) => {
   const [editingContent, setEditingContent] = useState(todo.content);
@@ -33,6 +33,12 @@ const TodoItem = ({ todo }) => {
     setEditingContent(todo.content);
   }, [todo.content]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();  // Shift + Enter の場合は無視して改行を許可
+      confirmContent(e);   // Enterが押されたときにconfirmContentを呼び出す
+    }
+  };
   return (
     <div>
       <button
@@ -46,6 +52,7 @@ const TodoItem = ({ todo }) => {
           <textarea
           value={editingContent}
           onChange={changeContent}
+          onKeyDown={handleKeyDown}
           className="w-full h-full p-2 border rounded resize-none overflow-auto"
           style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
         />
@@ -53,7 +60,7 @@ const TodoItem = ({ todo }) => {
           <div
             className="h-full w-full p-2"
             onDoubleClick={toggleEditMode}
-            style={{ whiteSpace: "pre-wrap" }}
+            style={{ whiteSpace: "pre-wrap",wordBreak: "break-all"}}
           >
             {todo.content}
           </div>

@@ -1,6 +1,6 @@
-import List from "./List";
-import Form from "./Form";
-import EndedTodo from "../components/EndedTodo"
+import List from "../components/List";
+import Form from "../components/Form";
+
 const Todo = () => {
   return (
     <div className="flex">
@@ -9,7 +9,6 @@ const Todo = () => {
       </div>
       <div className="w-1/3">
         <Form />
-        <EndedTodo/>
       </div>
     </div>
   );
