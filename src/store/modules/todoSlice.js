@@ -37,11 +37,6 @@ export const todoSlice = createSlice({
           : { ..._todo };
       });
     },
-    reorderTodos: (state, {type,payload}) => {
-      const { startIndex, endIndex } = payload;
-      const [removed] = state.todos.splice(startIndex, 1);
-      state.todos.splice(endIndex, 0, removed);
-    },
   },
 });
 
