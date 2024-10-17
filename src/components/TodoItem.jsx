@@ -36,16 +36,27 @@ const TodoItem = ({ todo }) => {
   return (
     <div>
       <button
-        onClick={complete}
-        className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+        onClick={() => complete(todo)}
+        className="absolute top-2 right-2 bg-red-500 text-white font-bold rounded-full p-1"
       >
-        完了
+        ×
       </button>
-      <form onSubmit={confirmContent} style={{ display: "inline" }}>
+      <form onSubmit={confirmContent} className="h-full">
         {todo.isEditing ? (
-          <input value={editingContent} onChange={changeContent} />
+          <textarea
+          value={editingContent}
+          onChange={changeContent}
+          className="w-full h-full p-2 border rounded resize-none overflow-auto"
+          style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
+        />
         ) : (
-          <span onDoubleClick={toggleEditMode}>{todo.content}</span>
+          <div
+            className="h-full w-full p-2"
+            onDoubleClick={toggleEditMode}
+            style={{ whiteSpace: "pre-wrap" }}
+          >
+            {todo.content}
+          </div>
         )}
       </form>
     </div>
