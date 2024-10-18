@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import DraggableResizableWrapper from "./DraggableResizableWrapper";
 import { deleteTodo, updateTodo } from "../../store/modules/todoSlice";
 
 const TodoItem = () => {
   const todos = useSelector((state) => state.todos.todos);
-  const [editingContent, setEditingContent] = useState("");
+  const [editingContentMap, setEditingContentMap] = useState({});
   const dispatch = useDispatch();
 
   const complete = (todo) => {
@@ -16,32 +16,35 @@ const TodoItem = () => {
   const toggleEditMode = (todo) => {
     const newTodo = { ...todo, isEditing: !todo.isEditing };
     dispatch(updateTodo({ todo: newTodo }));
+    if (!todo.isEditing) {
+      setEditingContentMap((prev) => ({
+        ...prev,
+        [todo.id]: todo.content,
+      }));
+    }
   };
 
-  const changeContent = (e) => {
-    setEditingContent(e.target.value);
+  const changeContent = (e, todo) => {
+    setEditingContentMap((prev) => ({
+      ...prev,
+      [todo.id]: e.target.value,
+    }));
   };
 
   const confirmContent = (e, todo) => {
     e.preventDefault();
     const newTodo = {
       ...todo,
-      content: editingContent,
+      content: editingContentMap[todo.id] || todo.content,
       isEditing: false,
     };
     dispatch(updateTodo({ todo: newTodo }));
   };
 
-  useEffect(() => {
-    if (todos.length > 0) {
-      setEditingContent(todos[0].content);
-    }
-  }, [todos]);
-
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e, todo) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();  // Shift + Enter の場合は無視して改行を許可
-      confirmContent(e);   // Enterが押されたときにconfirmContentを呼び出す
+      e.preventDefault(); // Shift + Enter の場合は無視して改行を許可
+      confirmContent(e, todo); // Enterが押されたときにconfirmContentを呼び出す
     }
   };
 
@@ -59,9 +62,9 @@ const TodoItem = () => {
             <form onSubmit={(e) => confirmContent(e, todo)} className="h-full">
               {todo.isEditing ? (
                 <textarea
-                  value={editingContent}
-                  onChange={changeContent}
-                  onKeyDown={handleKeyDown}
+                  value={editingContentMap[todo.id] || ""}
+                  onChange={(e) => changeContent(e, todo)}
+                  onKeyDown={(e) => handleKeyDown(e, todo)}
                   className="w-full h-full p-2 border rounded resize-none overflow-auto"
                   style={{ minHeight: "100px", maxHeight: "300px" }} // 最小・最大の高さを設定
                 />
