@@ -10,7 +10,7 @@ const EndedTodo = () => {
       {endedTodos.length
         ? endedTodos.map((todo, index) => (
             <div key={index}>
-              <span>{todo.content}</span>
+              <span>{todo.content}---完了した時間:{todo.date}</span>
             </div>
           ))
         : "完了したTodoはありません"}

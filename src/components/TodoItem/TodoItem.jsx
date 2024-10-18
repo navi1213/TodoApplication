@@ -72,9 +72,12 @@ const TodoItem = () => {
                 <div
                   className="h-full w-full p-2"
                   onDoubleClick={() => toggleEditMode(todo)}
-                  style={{ whiteSpace: "pre-wrap" }}
+                  style={{ whiteSpace: "pre-wrap",fontFamily:" Zen Kurenaido, sans-serif" }}
                 >
                   {todo.content}
+                  <div>
+                  {todo.date}
+                  </div>
                 </div>
               )}
             </form>

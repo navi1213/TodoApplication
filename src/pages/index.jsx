@@ -4,8 +4,7 @@ import "../index.css";
 
 import TodoItem from "../components/TodoItem/TodoItem";
 import Form from "../components/Form/Form";
-import EndedTodo from "../components/EndedTodo";
-
+import EndedTodo from "../components/TodoItem/EndedTodo";
 function App() {
   return (
     <>
