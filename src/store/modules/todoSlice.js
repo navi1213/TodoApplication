@@ -8,18 +8,18 @@ export const todoSlice = createSlice({
         id: 1,
         content: "買い物に行く",
         isEditing: false,
-        date:1730467545178
+        timestamp:1730467545178
       },{
         id: 2,
         content: "卵買う",
         isEditing: false,
-        date:1730467545178
+        timestamp:1730467545178
       },
       {
         id: 3,
         content: "郵便出す",
         isEditing: false,
-        date:1730467545178
+        timestamp:1730467545178
       }
     ],
     endedTodos:[]
@@ -29,8 +29,7 @@ export const todoSlice = createSlice({
       state.todos.push(payload.todo);
     },
     deleteTodo: (state, { type, payload }) => {
-      const d = new Date();
-      state.endedTodos.push({...payload.todo,date:dayjs().valueOf()});
+      state.endedTodos.push({...payload.todo,timestamp:dayjs().valueOf()});
       state.todos = state.todos.filter((_todo) => {
         return _todo.id !== payload.todo.id;
       });

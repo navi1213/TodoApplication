@@ -12,7 +12,7 @@ const Form = () => {
       content: enteredTodo,
       isEditing: false,
       //現在のunixタイムスタンプを保存
-      date:dayjs().valueOf()
+      timestamp:dayjs().valueOf()
     };
     dispatch(addTodo({ todo: newTodo }));
     setEnteredTodo("");

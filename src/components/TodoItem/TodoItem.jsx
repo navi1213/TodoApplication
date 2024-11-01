@@ -79,7 +79,7 @@ const TodoItem = () => {
                   }}
                 >
                   {todo.content}
-                  <div>{dayjs(todo.date).format("YYYY-MM-DD HH:mm dd")}</div>
+                  <div>{dayjs(todo.timestamp).format("YYYY-MM-DD HH:mm dd")}</div>
                 </div>
               )}
             </form>

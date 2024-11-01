@@ -10,7 +10,7 @@ const CompletedTodo = () => {
       {endedTodos.length
         ? endedTodos.map((todo, index) => (
             <div key={index}>
-              <span>{todo.content}---完了した時間:{dayjs(todo.date).format("YYYY-MM-DD HH:mm dd")}</span>
+              <span>{todo.content}---完了した時間:{dayjs(todo.timestamp).format("YYYY-MM-DD HH:mm dd")}</span>
             </div>
           ))
         : "完了したTodoはありません"}
