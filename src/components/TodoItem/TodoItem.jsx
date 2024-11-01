@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-
 import DraggableResizableWrapper from "./DraggableResizableWrapper";
 import { deleteTodo, updateTodo } from "../../store/modules/todoSlice";
-
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
 const TodoItem = () => {
+  dayjs.locale("ja");
   const todos = useSelector((state) => state.todos.todos);
   const [editingContentMap, setEditingContentMap] = useState({});
   const dispatch = useDispatch();
@@ -72,12 +73,13 @@ const TodoItem = () => {
                 <div
                   className="h-full w-full p-2"
                   onDoubleClick={() => toggleEditMode(todo)}
-                  style={{ whiteSpace: "pre-wrap",fontFamily:" Zen Kurenaido, sans-serif" }}
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    fontFamily: " Zen Kurenaido, sans-serif",
+                  }}
                 >
                   {todo.content}
-                  <div>
-                  {todo.date}
-                  </div>
+                  <div>{dayjs(todo.date).format("YYYY-MM-DD HH:mm dd")}</div>
                 </div>
               )}
             </form>

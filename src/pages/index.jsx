@@ -4,7 +4,7 @@ import "../index.css";
 
 import TodoItem from "../components/TodoItem/TodoItem";
 import Form from "../components/Form/Form";
-import EndedTodo from "../components/TodoItem/EndedTodo";
+import CompletedTodo from "../components/TodoItem/EndedTodo";
 function App() {
   return (
     <>
@@ -15,7 +15,7 @@ function App() {
           </div>
           <div className="w-1/3">
             <Form />
-            <EndedTodo/>
+            <CompletedTodo/>
           </div>
         </div>
       </Provider>

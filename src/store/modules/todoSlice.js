@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import formatDate from "../../functions/formatDate";
+import dayjs from 'dayjs'
 export const todoSlice = createSlice({
   name: "todos",
   initialState: {
@@ -8,18 +8,18 @@ export const todoSlice = createSlice({
         id: 1,
         content: "買い物に行く",
         isEditing: false,
-        date:"2024-10-18 22:00 金曜日"
+        date:1730467545178
       },{
         id: 2,
         content: "卵買う",
         isEditing: false,
-        date:"2024-10-18 22:00 金曜日"
+        date:1730467545178
       },
       {
         id: 3,
         content: "郵便出す",
         isEditing: false,
-        date:"2024-10-18 22:00 金曜日"
+        date:1730467545178
       }
     ],
     endedTodos:[]
@@ -30,7 +30,7 @@ export const todoSlice = createSlice({
     },
     deleteTodo: (state, { type, payload }) => {
       const d = new Date();
-      state.endedTodos.push({...payload.todo,date:formatDate(d, "YYYY-MM-DD hh:mm date")});
+      state.endedTodos.push({...payload.todo,date:dayjs().valueOf()});
       state.todos = state.todos.filter((_todo) => {
         return _todo.id !== payload.todo.id;
       });
