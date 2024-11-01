@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-
-const EndedTodo = () => {
+import dayjs from 'dayjs'
+const CompletedTodo = () => {
   // state.todoSlice.endedTodosから取得
   const endedTodos = useSelector((state) => state.todos.endedTodos);
 
@@ -10,7 +10,7 @@ const EndedTodo = () => {
       {endedTodos.length
         ? endedTodos.map((todo, index) => (
             <div key={index}>
-              <span>{todo.content}</span>
+              <span>{todo.content}---完了した時間:{dayjs(todo.timestamp).format("YYYY-MM-DD HH:mm dd")}</span>
             </div>
           ))
         : "完了したTodoはありません"}
@@ -18,4 +18,4 @@ const EndedTodo = () => {
   );
 };
 
-export default EndedTodo;
+export default CompletedTodo;

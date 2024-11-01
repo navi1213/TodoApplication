@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../../store/modules/todoSlice";
-
+import dayjs from 'dayjs'
 const Form = () => {
   const [enteredTodo, setEnteredTodo] = useState("");
   const dispatch = useDispatch();
@@ -11,6 +11,8 @@ const Form = () => {
       id: Math.floor(Math.random() * 1e5),
       content: enteredTodo,
       isEditing: false,
+      //現在のunixタイムスタンプを保存
+      timestamp:dayjs().valueOf()
     };
     dispatch(addTodo({ todo: newTodo }));
     setEnteredTodo("");

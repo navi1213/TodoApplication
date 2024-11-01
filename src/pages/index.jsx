@@ -1,11 +1,10 @@
 import { Provider } from "react-redux";
 import store from "../store";
-import "../index.css"; 
+import "../index.css";
 
 import TodoItem from "../components/TodoItem/TodoItem";
 import Form from "../components/Form/Form";
-import EndedTodo from "../components/EndedTodo";
-
+import CompletedTodo from "../components/TodoItem/CompletedTodo";
 function App() {
   return (
     <>
@@ -16,7 +15,7 @@ function App() {
           </div>
           <div className="w-1/3">
             <Form />
-            <EndedTodo/>
+            <CompletedTodo/>
           </div>
         </div>
       </Provider>

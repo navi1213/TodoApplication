@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import dayjs from 'dayjs'
 export const todoSlice = createSlice({
   name: "todos",
   initialState: {
@@ -8,15 +8,18 @@ export const todoSlice = createSlice({
         id: 1,
         content: "買い物に行く",
         isEditing: false,
+        timestamp:1730467545178
       },{
         id: 2,
         content: "卵買う",
         isEditing: false,
+        timestamp:1730467545178
       },
       {
         id: 3,
         content: "郵便出す",
         isEditing: false,
+        timestamp:1730467545178
       }
     ],
     endedTodos:[]
@@ -26,9 +29,8 @@ export const todoSlice = createSlice({
       state.todos.push(payload.todo);
     },
     deleteTodo: (state, { type, payload }) => {
-      state.endedTodos.push(payload.todo);
+      state.endedTodos.push({...payload.todo,timestamp:dayjs().valueOf()});
       state.todos = state.todos.filter((_todo) => {
-        console.log(payload.todo);
         return _todo.id !== payload.todo.id;
       });
     },
