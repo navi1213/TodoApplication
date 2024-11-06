@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import DraggableResizableWrapper from "./DraggableResizableWrapper";
+import DraggableResizableWrapper from "../Wrapper/DraggableResizableWrapper";
 import { deleteTodo, updateTodo } from "../../store/modules/todoSlice";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -80,6 +80,7 @@ const TodoItem = () => {
                 >
                   {todo.content}
                   <div>{dayjs(todo.timestamp).format("YYYY-MM-DD HH:mm dd")}</div>
+                  <div>優先度:{todo.priority}</div>
                 </div>
               )}
             </form>

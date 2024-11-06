@@ -8,18 +8,22 @@ export const todoSlice = createSlice({
         id: 1,
         content: "買い物に行く",
         isEditing: false,
-        timestamp:1730467545178
+        timestamp:1730467545178,
+        //3が最も高い数値,1が最も低い数値とする
+        priority:1
       },{
         id: 2,
         content: "卵買う",
         isEditing: false,
-        timestamp:1730467545178
+        timestamp:1730467545178,
+        priority:1
       },
       {
         id: 3,
         content: "郵便出す",
         isEditing: false,
-        timestamp:1730467545178
+        timestamp:1730467545178,
+        priority:1
       }
     ],
     endedTodos:[]
